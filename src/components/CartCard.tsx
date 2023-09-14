@@ -1,60 +1,55 @@
-'use client'
+"use client";
 
 import { Product } from "@/types";
 import { useGlobalContext } from "@/app/Context/store";
 
 export interface CartProduct {
-    id: number;
-    quantity: number;
-    title: string;
-    price: number;
-    description: string;
-    category: string;
-    image: string;
-    rating: {
-        rate: number;
-        count: number;
-    };
+id: number;
+quantity: number;
+title: string;
+price: number;
+description: string;
+category: string;
+image: string;
+rating: {
+rate: number;
+count: number;
+};
 }
 
-export default function CartCard({product}: {
-    product: CartProduct
-}) {
-    const { cartProducts ,setCartProducts } = useGlobalContext();
-    
-    function onRemove(id: number){
-        console.log(id)
-        const cartCopy = [...cartProducts]
-        const updatedCart = cartCopy.filter(product => product.id !== id);
-        setCartProducts(updatedCart)
+export default function CartCard({ product }: { product: CartProduct }) {
+const { cartProducts, setCartProducts } = useGlobalContext();
+
+function onRemove(id: number) {
+const cartCopy = [...cartProducts];
+const updatedCart = cartCopy.filter((product) => product.id !== id);
+setCartProducts(updatedCart);
+}
+
+function onIncrease(product: CartProduct) {
+const updatedCartProducts = cartProducts.map((cartProduct) => {
+    if (cartProduct.id === product.id) {
+    return { ...cartProduct, quantity: cartProduct.quantity + 1 };
     }
 
-    function onIncrease(product: CartProduct) {
-        const updatedCartProducts = cartProducts.map((cartProduct) => {
-            if (cartProduct.id === product.id) {
-            return { ...cartProduct, quantity: cartProduct.quantity + 1 };
-            }
+    return cartProduct;
+});
 
-            return cartProduct;
-        });
-        
-        setCartProducts(updatedCartProducts);
+setCartProducts(updatedCartProducts);
+}
+
+function onDecrease(product: CartProduct) {
+const updatedCartProducts = cartProducts.map((cartProduct) => {
+    if (cartProduct.id === product.id) {
+    // Ensure the quantity doesn't go below 1
+    const newQuantity = Math.max(1, cartProduct.quantity - 1);
+    return { ...cartProduct, quantity: newQuantity };
     }
+    return cartProduct;
+});
 
-    function onDecrease(product: CartProduct) {
-        const updatedCartProducts = cartProducts.map((cartProduct) => {
-        if (cartProduct.id === product.id) {
-            // Ensure the quantity doesn't go below 1
-            const newQuantity = Math.max(1, cartProduct.quantity - 1);
-            return { ...cartProduct, quantity: newQuantity };
-        }
-        return cartProduct;
-        });
-
-        setCartProducts(updatedCartProducts);
-    }
-
-
+setCartProducts(updatedCartProducts);
+}
 
 return (
 <div className="flex items-center border-b border-gray-300 py-4">
@@ -67,9 +62,22 @@ return (
     </div>
     <div className="w-1/2 px-4">
     <h2 className="text-lg font-semibold">{product.title}</h2>
-    <p className="text-gray-600">${(product.price * product.quantity).toFixed(2)}</p>
+    <p className="text-gray-600">
+        ${(product.price * product.quantity).toFixed(2)}
+    </p>
     </div>
-    <div className="w-1/4 text-right">
+
+    <div className="w-1/4 h-20 text-right relative">
+
+    <div className="w-full text-right mb-6">
+        <button
+        onClick={() => onRemove(product.id)}
+        className="text-red-500 hover:text-red-700"
+        >
+        X
+        </button>
+    </div>
+
     <div className="flex items-center justify-end">
         <button
         onClick={() => onDecrease(product)}
@@ -85,12 +93,6 @@ return (
         +
         </button>
     </div>
-    <button
-        onClick={() => onRemove(product.id)}
-        className="text-red-500 hover:text-red-700 mt-2"
-    >
-        Remove
-    </button>
     </div>
 </div>
 );

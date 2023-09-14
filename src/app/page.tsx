@@ -11,7 +11,6 @@ import { Product } from '@/types';
 
 export default  async function Home() {
   const data = await get4Products();
-  console.log(data)
   return (
     <>
       <header role="banner" className="relative flex flex-col justify-end">
