@@ -13,7 +13,7 @@ const [open, setOpen] = useState(false);
 const [width, setWidth] = useState(window.innerWidth);
 const pathname = usePathname();
 
-const { cartOpen, setCartOpen } = useGlobalContext();
+const { setCartOpen } = useGlobalContext();
 
 function toggleMenu(){
     setOpen((prev) => !prev)
@@ -59,7 +59,7 @@ return (
             <li>
             <Link
                 href="/"
-                onClick={() => setOpen(false)}
+                onClick={() => {setOpen(false), setCartOpen(false)}}
                 className={`${
                 pathname === "/" ? "border-b border-black" : "border-b-none"
                 }`}
@@ -70,7 +70,7 @@ return (
             <li>
             <Link
                 href="/products"
-                onClick={() => setOpen(false)}
+                onClick={() => {setOpen(false), setCartOpen(false)}}
                 className={`${
                 pathname === "/products"
                     ? "border-b border-black"
@@ -108,7 +108,7 @@ return (
             <li>
             <Link
                 href="/"
-                onClick={() => setOpen(false)}
+                onClick={() => {setOpen(false), setCartOpen(false)}}
                 className={`${
                 pathname === "/" ? "border-b border-black" : "border-b-none"
                 }`}
@@ -119,7 +119,7 @@ return (
             <li>
             <Link
                 href="/products"
-                onClick={() => setOpen(false)}
+                onClick={() => {setOpen(false), setCartOpen(false)}}
                 className={`${
                 pathname === "/products"
                     ? "border-b border-black"

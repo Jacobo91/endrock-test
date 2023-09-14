@@ -1,6 +1,5 @@
 "use client";
 
-import { Product } from "@/types";
 import { useGlobalContext } from "@/app/Context/store";
 
 export interface CartProduct {
