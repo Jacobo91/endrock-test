@@ -5,6 +5,7 @@ import React, { createContext, useContext, Dispatch, SetStateAction, useState } 
 
 interface ProductType {
 id: number;
+quantity: number;
 title: string;
 price: number;
 description: string;
@@ -19,11 +20,13 @@ count: number;
 
 interface ContextState {
 cartProducts: ProductType[];
+cartOpen: boolean;
 }
 
 
 interface ContextActions {
 setCartProducts: Dispatch<SetStateAction<ProductType[]>>;
+setCartOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 
@@ -40,13 +43,14 @@ export const GlobalContextProvider: React.FC<{ children: React.ReactNode }> = ({
         return storedCartProducts ? JSON.parse(storedCartProducts) : [];
     });
     
+    const [cartOpen, setCartOpen] = useState(false);
 
     React.useEffect(() => {
         window.localStorage.setItem('cartProducts', JSON.stringify(cartProducts));
     }, [cartProducts]);
 
 return (
-<GlobalContext.Provider value={{ cartProducts, setCartProducts }}>
+<GlobalContext.Provider value={{ cartProducts, setCartProducts, cartOpen, setCartOpen }}>
     {children}
 </GlobalContext.Provider>
 );

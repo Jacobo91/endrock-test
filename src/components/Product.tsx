@@ -11,11 +11,17 @@ interface CardProps {
 
 export default function SingleProduct({product}: CardProps){
 
-    const { cartProducts, setCartProducts } = useGlobalContext()
+    const { cartProducts, setCartProducts, setCartOpen } = useGlobalContext()
 
-    function addProduct(productToAdd:  Product){
-        const updatedCartProducts = [...cartProducts, productToAdd]
-        setCartProducts(updatedCartProducts)
+    function addProduct(productToAdd: Product) {
+    const productIndex = cartProducts.findIndex((product) => product.id === productToAdd.id);
+    
+    if (productIndex === -1) {
+        const updatedProductToAdd = { ...productToAdd, quantity: 1 };
+        const updatedCartProducts = [...cartProducts, updatedProductToAdd];
+        setCartProducts(updatedCartProducts);
+        setCartOpen(true)
+        } 
     }
 
     useEffect(() => { console.log(cartProducts) })

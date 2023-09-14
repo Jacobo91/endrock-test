@@ -5,13 +5,15 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Button from './Button';
 import Cart from './Cart';
+import { useGlobalContext } from '@/app/Context/store';
 
 export default function Navbar() {
 
 const [open, setOpen] = useState(false);
-const [cartOpen, setCartOpen] = useState(false);
 const [width, setWidth] = useState(window.innerWidth);
 const pathname = usePathname();
+
+const { cartOpen, setCartOpen } = useGlobalContext();
 
 function toggleMenu(){
     setOpen((prev) => !prev)
@@ -19,10 +21,6 @@ function toggleMenu(){
 
 function toggleCart(){
     setCartOpen((prev) => !prev)
-}
-
-function closeCart(){
-    setCartOpen(false)
 }
 
 useEffect(() => {
@@ -87,7 +85,7 @@ return (
             <i className="fa-solid fa-cart-shopping"></i>
         </Button>
 
-        <Cart cartOpen={cartOpen} handleClick={closeCart}/>
+        <Cart/>
         </>
     ) : (
         <>
@@ -137,7 +135,7 @@ return (
             <i className="fa-solid fa-cart-shopping"></i>
         </Button>
 
-        <Cart cartOpen={cartOpen} handleClick={closeCart}/>
+        <Cart/>
         </>
     )}
     </nav>
