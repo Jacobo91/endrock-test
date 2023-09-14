@@ -4,6 +4,7 @@ import { Product } from "@/types";
 import Button from "./Button";
 import { useEffect } from "react";
 import { useGlobalContext } from "@/app/Context/store";
+import Swal from 'sweetalert2'
 
 interface CardProps {
     product: Product;
@@ -21,7 +22,14 @@ export default function SingleProduct({product}: CardProps){
         const updatedCartProducts = [...cartProducts, updatedProductToAdd];
         setCartProducts(updatedCartProducts);
         setCartOpen(true)
-        } 
+        } else {
+            Swal.fire({
+                title: 'Item already in your cart!',
+                text: '',
+                icon: 'warning',
+                confirmButtonText: 'Close'
+            })
+        }
     }
 
     useEffect(() => { console.log(cartProducts) })
