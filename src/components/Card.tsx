@@ -1,11 +1,9 @@
 
 import Link from 'next/link';
-import { Product } from '@/types';
+import { CardProps } from '@/types';
 
 
-interface CardProps {
-    product: Product;
-}
+
 
 export default function Card({product}: CardProps){
     const titleLength = product.title.length;

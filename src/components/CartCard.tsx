@@ -1,20 +1,8 @@
 "use client";
 
 import { useGlobalContext } from "@/app/Context/store";
+import { CartProduct } from "@/types";
 
-export interface CartProduct {
-id: number;
-quantity: number;
-title: string;
-price: number;
-description: string;
-category: string;
-image: string;
-rating: {
-rate: number;
-count: number;
-};
-}
 
 export default function CartCard({ product }: { product: CartProduct }) {
 const { cartProducts, setCartProducts } = useGlobalContext();

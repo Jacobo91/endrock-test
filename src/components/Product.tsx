@@ -2,13 +2,10 @@
 
 import { Product } from "@/types";
 import Button from "./Button";
-import { useEffect } from "react";
 import { useGlobalContext } from "@/app/Context/store";
 import Swal from 'sweetalert2'
+import { CardProps } from "@/types";
 
-interface CardProps {
-    product: Product;
-}
 
 export default function SingleProduct({product}: CardProps){
 
@@ -31,8 +28,6 @@ export default function SingleProduct({product}: CardProps){
             })
         }
     }
-
-    useEffect(() => { console.log(cartProducts) })
 
     return (
     <div className="max-w-screen-xl mx-auto p-6 my-10 sm:my-20 sm:p-8">

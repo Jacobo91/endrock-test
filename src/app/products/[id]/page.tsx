@@ -1,11 +1,8 @@
 import { getProductById } from "../../../../lib/products"
 import SingleProduct from "../../../components/Product";
+import { ProductPageProps } from "@/types";
 
-interface ProductPageProps {
-    params: {
-        id: string;
-    };
-}
+
 
 export default async function Product({params}: ProductPageProps){
     const { id } = params;

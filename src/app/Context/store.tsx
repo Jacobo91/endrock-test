@@ -1,31 +1,17 @@
 'use client';
 
 import React, { createContext, useContext, Dispatch, SetStateAction, useState } from 'react';
-
-
-interface ProductType {
-id: number;
-quantity: number;
-title: string;
-price: number;
-description: string;
-category: string;
-image: string;
-rating: {
-rate: number;
-count: number;
-};
-}
+import { CartProduct } from '@/types';
 
 
 interface ContextState {
-cartProducts: ProductType[];
+cartProducts: CartProduct[];
 cartOpen: boolean;
 }
 
 
 interface ContextActions {
-setCartProducts: Dispatch<SetStateAction<ProductType[]>>;
+setCartProducts: Dispatch<SetStateAction<CartProduct[]>>;
 setCartOpen: Dispatch<SetStateAction<boolean>>;
 }
 
@@ -38,7 +24,7 @@ const GlobalContext = createContext<ContextType | undefined>(undefined);
 
 export const GlobalContextProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
-    const [cartProducts, setCartProducts] = useState<ProductType[]>(() => {
+    const [cartProducts, setCartProducts] = useState<CartProduct[]>(() => {
         const storedCartProducts = window.localStorage.getItem('cartProducts');
         return storedCartProducts ? JSON.parse(storedCartProducts) : [];
     });
