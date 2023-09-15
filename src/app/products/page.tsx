@@ -1,9 +1,14 @@
+import type { Metadata } from 'next'
 import Main from '../../components/Main';
 import Card from '../../components/Card';
 import Gallery from '@/components/Gallery';
 import { getAllProducts } from '../../../lib/products'
 import { Product } from '@/types';
 
+export const metadata: Metadata = {
+    title: 'Products',
+    description: 'Products catalog',
+}
 
 export default async function Products(){
     const data = await getAllProducts();
