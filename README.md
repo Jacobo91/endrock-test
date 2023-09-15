@@ -8,6 +8,8 @@
 
 - alerts where created usin sweetAlert2 : npm install sweetalert2
 
+- animations where created using framer motion: npm install framer-motion
+
 - all other dependencies can be install through npx create-next-app@latest, such as tailwindcss and typescript
 
 

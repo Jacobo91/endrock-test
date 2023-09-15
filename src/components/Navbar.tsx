@@ -14,7 +14,7 @@ export default function Navbar() {
 const [open, setOpen] = useState(false);
 const [width, setWidth] = useState(window.innerWidth);
 const pathname = usePathname();
-console.log(pathname)
+
 const { setCartOpen } = useGlobalContext();
 
 function toggleMenu(){
