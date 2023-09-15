@@ -6,13 +6,15 @@ import { usePathname } from 'next/navigation';
 import Button from './Button';
 import Cart from './Cart';
 import { useGlobalContext } from '@/app/Context/store';
+import { paths } from '@/paths';
+import { motion } from 'framer-motion';
 
 export default function Navbar() {
 
 const [open, setOpen] = useState(false);
 const [width, setWidth] = useState(window.innerWidth);
 const pathname = usePathname();
-
+console.log(pathname)
 const { setCartOpen } = useGlobalContext();
 
 function toggleMenu(){
@@ -56,36 +58,24 @@ return (
             open ? "visible" : "hidden"
             } sm:block sm:relative sm:h-auto sm:flex sm:w-auto sm:gap-4 sm:py-0`}
         >
-            <li>
-            <Link
-                href="/"
-                onClick={() => {setOpen(false), setCartOpen(false)}}
-                className={`${
-                pathname === "/" ? "border-b border-black" : "border-b-none"
-                }`}
-            >
-                Home
-            </Link>
-            </li>
-            <li>
-            <Link
-                href="/products"
-                onClick={() => {setOpen(false), setCartOpen(false)}}
-                className={`${
-                pathname === "/products"
-                    ? "border-b border-black"
-                    : "border-b-none"
-                }`}
-            >
-                Products
-            </Link>
-            </li>
+            {paths.map(path => (
+                <li key={path.id}>
+                    <Link 
+                        href={path.path} 
+                        onClick={() => {setOpen(false), setCartOpen(false)}}
+                        className="relative"
+                    >
+                        {pathname === path.path && (
+                            <motion.span layoutId="underline" className='absolute left-0 top-full block h-[1px] w-full bg-black' />
+                        )}
+                        {path.name}
+                    </Link>
+                </li>
+            ))}
         </ul>
         <Button handleClick={toggleCart}>
             <i className="fa-solid fa-cart-shopping"></i>
         </Button>
-
-        <Cart/>
         </>
     ) : (
         <>
@@ -105,39 +95,25 @@ return (
             } 
                             sm:block sm:relative sm:h-auto sm:flex sm:w-auto sm:gap-4 sm:py-0`}
         >
-            <li>
-            <Link
-                href="/"
-                onClick={() => {setOpen(false), setCartOpen(false)}}
-                className={`${
-                pathname === "/" ? "border-b border-black" : "border-b-none"
-                }`}
-            >
-                Home
-            </Link>
-            </li>
-            <li>
-            <Link
-                href="/products"
-                onClick={() => {setOpen(false), setCartOpen(false)}}
-                className={`${
-                pathname === "/products"
-                    ? "border-b border-black"
-                    : "border-b-none"
-                }`}
-            >
-                Products
-            </Link>
-            </li>
+            {paths.map(path => (
+                <li key={path.id}>
+                    <Link 
+                        href={path.path} 
+                        onClick={() => {setOpen(false), setCartOpen(false)}}
+                        className={`${pathname === path.path && 'border-b border-black'}`}
+                    >
+                        {path.name}
+                    </Link>
+                </li>
+            ))}
         </ul>
         <h3 className='z-20'>My Shop</h3>
         <Button handleClick={toggleCart}>
             <i className="fa-solid fa-cart-shopping"></i>
         </Button>
-
-        <Cart/>
         </>
     )}
+    <Cart/>
     </nav>
 );
 }

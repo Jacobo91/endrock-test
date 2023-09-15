@@ -33,4 +33,5 @@ export interface CartProduct {
     rate: number;
     count: number;
     };
-    }
+}
+
